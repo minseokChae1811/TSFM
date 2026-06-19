@@ -1,6 +1,14 @@
 {
-  "0": "normal",
-  "1": "ball",
-  "2": "inner_race",
-  "3": "outer_race"
+  "fault": {
+    "0": "normal",
+    "1": "ball",
+    "2": "inner_race",
+    "3": "outer_race"
+  },
+  "load_hp": {
+    "0": "0 HP",
+    "1": "1 HP",
+    "2": "2 HP",
+    "3": "3 HP"
+  }
 }
