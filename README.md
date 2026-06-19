@@ -29,8 +29,8 @@ frozen feature extractors for downstream tasks.
 The CWRU sample (25 spectrograms × 4 fault classes, balanced across 4
 load conditions) supports the same leave-one-condition-out (LOCO)
 evaluation protocol used in the paper. The released checkpoints were
-pretrained with CWRU held out, so reported accuracy represents true
-zero-shot transfer.
+pretrained without CWRU in the training corpus, so the bundled sample
+evaluates the encoder on a dataset that was unseen during pretraining.
 
 Checkpoints for the other held-out datasets used in the paper's LODO
 experiments are available upon request to the corresponding author.
