@@ -32,6 +32,9 @@ evaluation protocol used in the paper. The released checkpoints were
 pretrained with CWRU held out, so reported accuracy represents true
 zero-shot transfer.
 
+Checkpoints for the other held-out datasets used in the paper's LODO
+experiments are available upon request to the corresponding author.
+
 ## Quick start
 
 ```bash
@@ -85,8 +88,18 @@ float32.
 }
 ```
 
-When using the bundled CWRU samples, please also cite the
-Case Western Reserve University Bearing Data Center.
+When using the bundled CWRU samples, please also cite the source
+dataset:
+
+> Case Western Reserve University Bearing Data Center.
+> https://engineering.case.edu/bearingdatacenter
+
+and, where appropriate, the standard CWRU benchmark study:
+
+> Smith, W. A., & Randall, R. B. (2015). Rolling element bearing
+> diagnostics using the Case Western Reserve University data: A
+> benchmark study. *Mechanical Systems and Signal Processing*, 64,
+> 100-131.
 
 ## License
 
