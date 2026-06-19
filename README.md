@@ -72,7 +72,7 @@ scorer, etc.).
 ## Input format
 
 Single-channel STFT magnitude spectrograms shaped `(B, 1, 224, 224)`,
-float32, frequency on the vertical axis and time on the horizontal axis.
+float32.
 
 ## Citation
 
