@@ -5,11 +5,19 @@ released alongside the paper:
 
 > **"<Paper Title>"** &middot; <Authors> &middot; <Venue> 2026.
 
-This release ships two inference-ready TorchScript encoders, **TSFM-SS**
-(single-scale) and **TSFM-MS** (multi-scale, the main proposed model),
-together with a small labeled sample for sanity checking. Both produce a
-192-dim feature vector per spectrogram and can be used directly as
-frozen feature extractors for downstream tasks.
+This release provides:
+
+1. **Sample data** &mdash; a subset of the CWRU bearing dataset, converted
+   to STFT spectrograms in the input format the model expects.
+2. **Pretrained model weights** &mdash; two encoders, **TSFM-SS**
+   (single-scale) and **TSFM-MS** (multi-scale, the main proposed model),
+   shipped as TorchScript checkpoints. CWRU was excluded from the
+   pretraining corpus.
+3. **Inference example** &mdash; a minimal script that combines the two so
+   the encoder can be exercised end-to-end.
+
+Each encoder maps an STFT to a 192-dim feature vector and can be used as
+a frozen feature extractor for downstream tasks.
 
 ---
 
@@ -26,24 +34,10 @@ frozen feature extractors for downstream tasks.
 | `inference.py` | Minimal example: load → extract → LOCO MLP probe |
 | `requirements.txt` | `torch`, `numpy`, `scikit-learn` |
 
-The CWRU sample (15 spectrograms × 4 fault classes × 4 load conditions
-= 240 total) follows the paper's CWRU evaluation protocol — severity
-filter on the fault-size domain, condition-centered L2 normalization
-(CondCL2N), and a 4-fold leave-one-condition-out (LOCO) MLP probe — so
-the inference example reproduces the paper's CWRU accuracy directly.
-The released checkpoints were pretrained without CWRU in the training
-corpus, so the bundled sample evaluates the encoder on a dataset that
-was unseen during pretraining.
-
-Note that the bundled 240-sample set is a reduced subset of the full
-~2,000-sample CWRU evaluation pool used in the paper; the subset is
-sized to fit comfortably within the GitHub repository. Accuracy is
-identical on both because the task saturates under the severity filter.
-The full evaluation set is available upon request to the corresponding
-authors.
-
-Checkpoints for the other held-out datasets used in the paper's LODO
-experiments are available upon request to the corresponding author.
+The bundled CWRU sample is a 240-spectrogram subset of the full
+evaluation pool used in the paper. The full evaluation set and the
+checkpoints for the other held-out datasets are available upon request
+to the corresponding authors.
 
 ## Quick start
 
@@ -65,12 +59,6 @@ Loaded 240 STFTs | 4 faults × 4 load conditions
   LOCO MLP accuracy (mean ± std over 4 folds): 100.00 ± 0.00%
 ```
 
-Both variants match the paper's reported CWRU MLP accuracy (1.000) — on
-this dataset the gap between SS and MS is negligible. The full LOCO
-macro accuracy across the 13 evaluation datasets reported in the paper
-shows MS outperforming SS, driven primarily by harder datasets such as
-MCC5-THU.
-
 ## Programmatic use
 
 ```python
@@ -82,8 +70,7 @@ with torch.no_grad():
     feats = model(stft)                 # (B, 192)
 ```
 
-Feed `feats` into any downstream classifier of choice (MLP, KNN, anomaly
-scorer, etc.).
+Feed `feats` into any downstream classifier of choice.
 
 ## Input format
 
@@ -116,13 +103,10 @@ Minseok Chae<sup>a</sup>, Yong Chae Kim<sup>a</sup>, Sang Kyung Lee<sup>a</sup>,
 }
 ```
 
-When using the bundled CWRU samples, please also cite the source
-dataset:
+When using the bundled CWRU samples, please also cite:
 
 > Case Western Reserve University Bearing Data Center.
 > https://engineering.case.edu/bearingdatacenter
-
-and, where appropriate, the standard CWRU benchmark study:
 
 > Smith, W. A., & Randall, R. B. (2015). Rolling element bearing
 > diagnostics using the Case Western Reserve University data: A
