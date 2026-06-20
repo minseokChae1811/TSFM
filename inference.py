@@ -17,7 +17,6 @@ TorchScript binary.
 import argparse, json, numpy as np, torch
 from pathlib import Path
 from sklearn.neural_network import MLPClassifier
-from sklearn.preprocessing import StandardScaler
 
 HERE     = Path(__file__).parent
 DATA_DIR = HERE / "sample_data"
@@ -38,14 +37,24 @@ def extract_features(model, X, device, batch_size=32):
     return np.concatenate(feats, axis=0)
 
 
+def cond_cl2n(feats, conds):
+    """Condition-centered L2 normalization (paper protocol)."""
+    out = feats.copy()
+    for c in np.unique(conds):
+        m = conds == c
+        centered = feats[m] - feats[m].mean(0, keepdims=True)
+        out[m] = centered / (np.linalg.norm(centered, axis=1, keepdims=True) + 1e-6)
+    return out
+
+
 def mlp_loco(feats, y, conds):
     """Leave-one-condition-out MLP probe; 3 seeds per fold."""
     fold_means = []
     for c in np.unique(conds):
         te = conds == c
         tr = ~te
-        scaler = StandardScaler().fit(feats[tr])
-        Xtr, Xte = scaler.transform(feats[tr]), scaler.transform(feats[te])
+        Xtr = cond_cl2n(feats[tr], conds[tr])
+        Xte = cond_cl2n(feats[te], conds[te])
         seed_accs = []
         for sd in SEEDS:
             clf = MLPClassifier(hidden_layer_sizes=(128,), max_iter=500,

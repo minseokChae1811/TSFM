@@ -19,18 +19,21 @@ frozen feature extractors for downstream tasks.
 |------|-------------|
 | `tsfm_ss_traced.pt` | TorchScript encoder (single-scale variant) |
 | `tsfm_ms_traced.pt` | TorchScript encoder (multi-scale variant) |
-| `sample_data/cwru_stft.npy` | 100 STFT spectrograms from CWRU |
+| `sample_data/cwru_stft.npy` | 240 STFT spectrograms from CWRU |
 | `sample_data/cwru_labels.npy` | Fault labels (0..3) |
 | `sample_data/cwru_loads.npy` | Load conditions (load_hp ∈ {0,1,2,3}) |
 | `sample_data/label_map.json` | Human-readable label names |
 | `inference.py` | Minimal example: load → extract → LOCO MLP probe |
 | `requirements.txt` | `torch`, `numpy`, `scikit-learn` |
 
-The CWRU sample (25 spectrograms × 4 fault classes, balanced across 4
-load conditions) supports the same leave-one-condition-out (LOCO)
-evaluation protocol used in the paper. The released checkpoints were
-pretrained without CWRU in the training corpus, so the bundled sample
-evaluates the encoder on a dataset that was unseen during pretraining.
+The CWRU sample (15 spectrograms × 4 fault classes × 4 load conditions
+= 240 total) follows the paper's CWRU evaluation protocol — severity
+filter on the fault-size domain, condition-centered L2 normalization
+(CondCL2N), and a 4-fold leave-one-condition-out (LOCO) MLP probe — so
+the inference example reproduces the paper's CWRU accuracy directly.
+The released checkpoints were pretrained without CWRU in the training
+corpus, so the bundled sample evaluates the encoder on a dataset that
+was unseen during pretraining.
 
 Checkpoints for the other held-out datasets used in the paper's LODO
 experiments are available upon request to the corresponding author.
@@ -46,19 +49,20 @@ python inference.py --variant ms    # MS only
 Expected output:
 
 ```
-Loaded 100 STFTs | 4 faults × 4 load conditions
+Loaded 240 STFTs | 4 faults × 4 load conditions
 
 --- TSFM-SS (tsfm_ss_traced.pt) ---
-  LOCO MLP accuracy (mean ± std over 4 folds): 96.00 ± 6.93%
+  LOCO MLP accuracy (mean ± std over 4 folds): 100.00 ± 0.00%
 
 --- TSFM-MS (tsfm_ms_traced.pt) ---
-  LOCO MLP accuracy (mean ± std over 4 folds): 99.00 ± 1.73%
+  LOCO MLP accuracy (mean ± std over 4 folds): 100.00 ± 0.00%
 ```
 
-(Numbers on the bundled 100-sample subset are necessarily noisier than
-the paper, which uses the full CWRU test set across the same severity
-filter. The paper reports full-test-set LOCO macro accuracy across 13
-datasets.)
+Both variants match the paper's reported CWRU MLP accuracy (1.000) — on
+this dataset the gap between SS and MS is negligible. The full LOCO
+macro accuracy across the 13 evaluation datasets reported in the paper
+shows MS outperforming SS, driven primarily by harder datasets such as
+MCC5-THU.
 
 ## Programmatic use
 
