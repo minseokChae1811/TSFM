@@ -49,14 +49,16 @@ Expected output:
 Loaded 100 STFTs | 4 faults × 4 load conditions
 
 --- TSFM-SS (tsfm_ss_traced.pt) ---
-  LOCO MLP accuracy (mean ± std over 4 folds): 95.31 ± 3.11%
+  LOCO MLP accuracy (mean ± std over 4 folds): 96.00 ± 6.93%
 
 --- TSFM-MS (tsfm_ms_traced.pt) ---
-  LOCO MLP accuracy (mean ± std over 4 folds): 96.92 ± 3.44%
+  LOCO MLP accuracy (mean ± std over 4 folds): 99.00 ± 1.73%
 ```
 
-(Numbers on the bundled 100-sample subset are necessarily noisy; the
-paper reports full-test-set LOCO macro accuracy across 13 datasets.)
+(Numbers on the bundled 100-sample subset are necessarily noisier than
+the paper, which uses the full CWRU test set across the same severity
+filter. The paper reports full-test-set LOCO macro accuracy across 13
+datasets.)
 
 ## Programmatic use
 
