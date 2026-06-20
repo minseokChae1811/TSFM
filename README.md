@@ -35,6 +35,13 @@ The released checkpoints were pretrained without CWRU in the training
 corpus, so the bundled sample evaluates the encoder on a dataset that
 was unseen during pretraining.
 
+Note that the bundled 240-sample set is a reduced subset of the full
+~2,000-sample CWRU evaluation pool used in the paper; the subset is
+sized to fit comfortably within the GitHub repository. Accuracy is
+identical on both because the task saturates under the severity filter.
+The full evaluation set is available upon request to the corresponding
+authors.
+
 Checkpoints for the other held-out datasets used in the paper's LODO
 experiments are available upon request to the corresponding author.
 
@@ -82,6 +89,21 @@ scorer, etc.).
 
 Single-channel STFT magnitude spectrograms shaped `(B, 1, 224, 224)`,
 float32.
+
+## Authors
+
+Minseok Chae<sup>a</sup>, Yong Chae Kim<sup>a</sup>, Sang Kyung Lee<sup>a</sup>, Juhyun Kim<sup>a</sup>, Jiheon Kang<sup>a</sup>, Uri Lim<sup>a</sup>, Jong Hyun Choi<sup>a</sup>, Junho Park<sup>a</sup>, Chan Hee Park<sup>b,\*</sup>, Jong Moon Ha<sup>c,\*</sup>, Byeng D. Youn<sup>a,d,e,\*</sup>
+
+<sup>a</sup> Department of Mechanical Engineering, Seoul National University, Seoul 08826, Republic of Korea  
+<sup>b</sup> Department of Mechanical Engineering, University of Seoul, Seoul 02504, Republic of Korea  
+<sup>c</sup> Department of Mechanical Engineering, Ajou University, Suwon 16499, Republic of Korea  
+<sup>d</sup> Institute of Advanced Machines and Design, Seoul National University, Seoul 08826, Republic of Korea  
+<sup>e</sup> OnePredict Inc., Seoul 06105, Republic of Korea
+
+<sup>\*</sup> Corresponding authors:
+- Chan Hee Park &mdash; `chnypark@uos.ac.kr`
+- Jong Moon Ha &mdash; `jmha@ajou.ac.kr`
+- Byeng D. Youn &mdash; `bdyoun@snu.ac.kr`
 
 ## Citation
 
