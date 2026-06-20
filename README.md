@@ -87,7 +87,9 @@ Minseok Chae<sup>a</sup>, Yong Chae Kim<sup>a</sup>, Sang Kyung Lee<sup>a</sup>,
 <sup>d</sup> Institute of Advanced Machines and Design, Seoul National University, Seoul 08826, Republic of Korea  
 <sup>e</sup> OnePredict Inc., Seoul 06105, Republic of Korea
 
-<sup>\*</sup> Corresponding authors:
+Code maintainer (for repository-related questions): Minseok Chae &mdash; `mschae1811@snu.ac.kr`
+
+<sup>\*</sup> Corresponding authors (for research correspondence):
 - Chan Hee Park &mdash; `chnypark@uos.ac.kr`
 - Jong Moon Ha &mdash; `jmha@ajou.ac.kr`
 - Byeng D. Youn &mdash; `bdyoun@snu.ac.kr`
